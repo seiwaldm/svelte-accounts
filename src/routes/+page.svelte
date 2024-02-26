@@ -4,15 +4,18 @@
 	let promise = supabase.from('countries').select();
 </script>
 
-<h1>Aufgaben:</h1>
+<div class="prose">
+	<h1>Aufgaben:</h1>
 
-<ul>
-	<li>
-		anstatt eines JS-Objekts, das auf der Seite dargestellt wird, möchte ich ein Liste aller Länder
-	</li>
-	<li>integriere einen Loading Spinner oÄ von daisyUI in dein Projekt</li>
-	<li>gibt die Vercel-URL zu deinem Projekt via Aufgabe im Teams ab</li>
-</ul>
+	<ul>
+		<li>
+			anstatt eines JS-Objekts, das auf der Seite dargestellt wird, möchte ich ein Liste aller
+			Länder
+		</li>
+		<li>integriere einen Loading Spinner oÄ von daisyUI in dein Projekt</li>
+		<li>gibt die Vercel-URL zu deinem Projekt via Aufgabe im Teams ab</li>
+	</ul>
+</div>
 
 {#await promise}
 	<div>...loading</div>
