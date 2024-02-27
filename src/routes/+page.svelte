@@ -9,16 +9,20 @@
 
 	<ul>
 		<li>
-			anstatt eines JS-Objekts, das auf der Seite dargestellt wird, möchte ich ein Liste aller
+			anstatt eines JS-Objekts, das auf der Seite dargestellt wird, möchte ich eine Liste aller
 			Länder
 		</li>
 		<li>integriere einen Loading Spinner oÄ von daisyUI in dein Projekt</li>
-		<li>gibt die Vercel-URL zu deinem Projekt via Aufgabe im Teams ab</li>
+		<li>gib die Vercel-URL zu deinem Projekt via Aufgabe im Teams ab</li>
 	</ul>
 </div>
 
 {#await promise}
-	<div>...loading</div>
+	<span class="loading loading-bars loading-lg text-primary" />
 {:then result}
-	<div>{JSON.stringify(result)}</div>
+	<ul>
+		{#each result.data as country (country.id)}
+			<li>{country.name}</li>
+		{/each}
+	</ul>
 {/await}

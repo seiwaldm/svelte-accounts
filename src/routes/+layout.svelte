@@ -1,6 +1,6 @@
 <script>
 	import '../app.postcss';
-	let theme = 'cyberpunk';
+	let theme = 'synthwave';
 </script>
 
 <div data-theme={theme} class="min-h-screen p-3">
