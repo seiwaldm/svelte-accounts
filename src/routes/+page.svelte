@@ -5,6 +5,7 @@
 </script>
 
 <div class="prose">
+	<a href="/api/hello">test</a>
 	<h1>Aufgaben:</h1>
 
 	<ul>
