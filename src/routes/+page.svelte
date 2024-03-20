@@ -7,14 +7,15 @@
 	let name = '';
 
 	async function sendName() {
-		const res = await fetch('/api/sendName', {
+		const response = await fetch('/api/sendName', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({ name })
 		});
-		console.log(res);
+		const data = await response.text();
+		console.log(data);
 		name = '';
 		names = supabase.from('rabbits').select();
 	}
