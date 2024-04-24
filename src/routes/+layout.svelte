@@ -7,14 +7,12 @@
 	onMount(() => {
 		supabase.auth.getSession().then(({ data }) => {
 			$session = data.session;
-			console.log(data.session);
-			document.cookie = `jwt=${JSON.stringify(data.session)}`;
+			// document.cookie = `jwt=${JSON.stringify(data.session)}`;
 		});
 
 		supabase.auth.onAuthStateChange((_event, _session) => {
 			$session = _session;
-			console.log(_session);
-			document.cookie = `jwt=${JSON.stringify(_session)}`;
+			// document.cookie = `jwt=${JSON.stringify(_session)}`;
 		});
 	});
 </script>
