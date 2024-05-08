@@ -20,6 +20,8 @@
 <div data-theme={$theme} class="min-h-screen p-3">
 	<nav class="flex items-center gap-8 m-4">
 		<a href="/" class="text-center">Home</a>|
+		<a href="/accounts" class="text-center">Accounts</a>|
+		<a href="/transactions" class="text-center">Transactions</a>|
 		<a href="/login" class="text-center">Login</a>|
 		<a href="/profile" class="text-center">Profile</a>|
 	</nav>
