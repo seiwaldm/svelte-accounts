@@ -30,6 +30,8 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@supabase/supabase-js": "^2.39.7"
+		"@supabase/supabase-js": "^2.39.7",
+		"chart.js": "^4.4.2",
+		"svelte-chartjs": "^3.1.5"
 	}
 }

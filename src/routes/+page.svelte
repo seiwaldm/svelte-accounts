@@ -1,4 +1,6 @@
 <script>
+	import BalanceLineChart from '$lib/BalanceLineChart.svelte';
+	import TransactionsBarChart from '$lib/TransactionsBarChart.svelte';
 	import { supabase } from '$lib/supabase';
 
 	let promise = supabase.from('countries').select();
@@ -22,6 +24,8 @@
 </script>
 
 <div class="prose">
+	<BalanceLineChart />
+	<TransactionsBarChart />
 	<h1>APIs</h1>
 	<ul>
 		<li><a href="/api/hello?name=Markus">Link zur API mit Query-Parameter</a></li>
