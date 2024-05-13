@@ -10,3 +10,10 @@ export const theme = writable(localStorage.theme || "synthwave");
 theme.subscribe(value => {
     localStorage.theme = value
 });
+
+export const accountList = writable(localStorage.accountList ? JSON.parse(localStorage.accountList) : null)
+
+accountList.subscribe(value => {
+    localStorage.accountList = JSON.stringify(value)
+});
+

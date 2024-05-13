@@ -4,9 +4,14 @@
 	import '../app.postcss';
 	import { session, theme } from '$lib/store';
 	import { browser } from '$app/environment';
+	import { accountList } from '$lib/store';
 	onMount(() => {
 		supabase.auth.getSession().then(({ data }) => {
 			$session = data.session;
+			supabase
+				.from('account_list')
+				.select('*')
+				.then((response) => ($accountList = response.data));
 			// document.cookie = `jwt=${JSON.stringify(data.session)}`;
 		});
 
