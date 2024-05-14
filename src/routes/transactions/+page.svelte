@@ -2,6 +2,10 @@
 	import { supabase } from '$lib/supabase';
 	import { onMount } from 'svelte';
 
+	import Transaction from '$lib/Transaction.svelte';
+
+
+
 	let transactionList = ['😘'];
 
 	async function getTransactions() {
