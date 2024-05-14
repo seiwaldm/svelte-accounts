@@ -1,4 +1,5 @@
 <script>
+	import BalanceLineChart from '$lib/BalanceLineChart.svelte';
 	import { supabase } from '$lib/supabase';
 	import { onMount } from 'svelte';
 	import TransactionsBarChart from '$lib/TransactionsBarChart.svelte';
@@ -18,3 +19,5 @@
 <div>{JSON.stringify(transactionList)}</div>
 
 <TransactionsBarChart transactions={transactionList} />
+
+<BalanceLineChart transactions={transactionList} />

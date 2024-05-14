@@ -1,12 +1,25 @@
 <script>
 	import { Line } from 'svelte-chartjs';
 	import 'chart.js/auto';
+
+	export let transactions;
+
+	$: days = transactions
+		.map((transaction) => transaction.created_at)
+		.map((date) =>
+			new Date(date).toLocaleDateString('de-DE', {
+				year: 'numeric',
+				month: 'short',
+				day: 'numeric'
+			})
+		);
+
 	const data = {
-		labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+		labels: days, //Datum
 		datasets: [
 			{
 				label: 'My First Dataset',
-				data: [65, 59, 80, 81, 56, 55, 40],
+				data: [65, 59, 80, 81], //Balnace
 				fill: false,
 				borderColor: 'rgb(75, 192, 192)',
 				tension: 0.1
@@ -63,4 +76,4 @@
 </script>
 
 <Line {data} />
-<Line data={complex} />
+{days}
