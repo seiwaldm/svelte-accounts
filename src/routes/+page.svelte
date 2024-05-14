@@ -1,10 +1,9 @@
 <script>
 	import BalanceLineChart from '$lib/BalanceLineChart.svelte';
-<<<<<<< Updated upstream
 	import TransactionList from '$lib/TransactionList.svelte';
-=======
+
 	import TransactionForm from '$lib/TransactionForm.svelte';
->>>>>>> Stashed changes
+
 	import TransactionsBarChart from '$lib/TransactionsBarChart.svelte';
 	import Transaction from '$lib/Transaction.svelte';
 	import { supabase } from '$lib/supabase';
@@ -39,9 +38,7 @@
 		purpose="Pizza"
 		created_at="2024-04-21"
 	/>
-	<BalanceLineChart />
 
-	<TransactionsBarChart />
 	<h1>APIs</h1>
 	<ul>
 		<li><a href="/api/hello?name=Markus">Link zur API mit Query-Parameter</a></li>
