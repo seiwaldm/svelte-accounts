@@ -24,7 +24,6 @@
 </script>
 
 <div class="prose">
-	<BalanceLineChart />
 	<TransactionsBarChart />
 	<h1>APIs</h1>
 	<ul>
