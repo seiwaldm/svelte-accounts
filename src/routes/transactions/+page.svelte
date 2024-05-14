@@ -2,6 +2,9 @@
 	import BalanceLineChart from '$lib/BalanceLineChart.svelte';
 	import { supabase } from '$lib/supabase';
 	import { onMount } from 'svelte';
+	import TransactionsBarChart from '$lib/TransactionsBarChart.svelte';
+
+	import Transaction from '$lib/Transaction.svelte';
 
 	let transactionList = ['😘'];
 	let transaction = supabase.from('transactions').select();
@@ -30,3 +33,7 @@
 		{/each}
 	</ul>
 {/await}
+
+<TransactionsBarChart transactions={transactionList} />
+
+<BalanceLineChart transactions={transactionList} />
