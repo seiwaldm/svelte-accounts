@@ -1,4 +1,5 @@
 <script>
+	import BalanceLineChart from '$lib/BalanceLineChart.svelte';
 	import { supabase } from '$lib/supabase';
 	import { onMount } from 'svelte';
 
@@ -17,6 +18,7 @@
 
 <div>{JSON.stringify(transactionList)}</div>
 
+<<<<<<< HEAD
 {#await transaction}
 	<span class="loading loading-bars loading-lg text-primary" />
 {:then result}
@@ -29,3 +31,6 @@
 		{/each}
 	</ul>
 {/await}
+=======
+<BalanceLineChart transactions={transactionList} />
+>>>>>>> 8f8cb84cb2eba1ebebfc778760b3e2f50605ef48
