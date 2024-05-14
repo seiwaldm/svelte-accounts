@@ -17,3 +17,14 @@ accountList.subscribe(value => {
     localStorage.accountList = JSON.stringify(value)
 });
 
+export const accounts = writable(localStorage.accounts ? JSON.parse(localStorage.accounts) : null)
+
+accounts.subscribe(value => {
+    localStorage.accounts = JSON.stringify(value)
+});
+
+export const transactions = writable(localStorage.transactions ? JSON.parse(localStorage.transactions) : null)
+
+transactions.subscribe(value => {
+    localStorage.transactions = JSON.stringify(value)
+});
