@@ -1,6 +1,10 @@
 <script>
 	import BalanceLineChart from '$lib/BalanceLineChart.svelte';
+<<<<<<< Updated upstream
 	import TransactionList from '$lib/TransactionList.svelte';
+=======
+	import TransactionForm from '$lib/TransactionForm.svelte';
+>>>>>>> Stashed changes
 	import TransactionsBarChart from '$lib/TransactionsBarChart.svelte';
 	import Transaction from '$lib/Transaction.svelte';
 	import { supabase } from '$lib/supabase';
@@ -25,6 +29,7 @@
 	}
 </script>
 
+<TransactionForm />
 <div class="prose">
 	<TransactionList />
 	<Transaction
