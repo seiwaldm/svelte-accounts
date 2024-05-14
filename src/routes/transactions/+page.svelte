@@ -4,6 +4,10 @@
 	import { onMount } from 'svelte';
 	import TransactionsBarChart from '$lib/TransactionsBarChart.svelte';
 
+	import Transaction from '$lib/Transaction.svelte';
+
+
+
 	let transactionList = ['😘'];
 
 	async function getTransactions() {
