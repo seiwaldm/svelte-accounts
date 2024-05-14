@@ -1,10 +1,6 @@
 <script>
-	import BalanceLineChart from '$lib/BalanceLineChart.svelte';
 	import TransactionList from '$lib/TransactionList.svelte';
-
 	import TransactionForm from '$lib/TransactionForm.svelte';
-
-	import TransactionsBarChart from '$lib/TransactionsBarChart.svelte';
 	import Transaction from '$lib/Transaction.svelte';
 	import { supabase } from '$lib/supabase';
 
