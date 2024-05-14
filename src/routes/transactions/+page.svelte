@@ -1,6 +1,7 @@
 <script>
 	import { supabase } from '$lib/supabase';
 	import { onMount } from 'svelte';
+	import TransactionsBarChart from '$lib/TransactionsBarChart.svelte';
 
 	let transactionList = ['😘'];
 
@@ -15,3 +16,5 @@
 </script>
 
 <div>{JSON.stringify(transactionList)}</div>
+
+<TransactionsBarChart transactions={transactionList} />
