@@ -11,6 +11,6 @@
 	};
 </script>
 
-<RangeCalendar bind:value class="rounded-md border max-w-min  bg-slate-300" />
+<RangeCalendar bind:value class="rounded-md border max-w-min text-black bg-slate-300" />
 
 {JSON.stringify(value)}
