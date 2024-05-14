@@ -26,9 +26,6 @@
 </script>
 
 <div class="prose">
-	<TransactionList />
-	<Transaction receiver_id="123456789"
-	sender_id="987654321" amount="10" purpose="Pizza" created_at="2024-04-21"/>
 	<BalanceLineChart />
 	<TransactionsBarChart />
 	<h1>APIs</h1>
