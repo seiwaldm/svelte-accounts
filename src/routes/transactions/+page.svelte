@@ -14,4 +14,7 @@
 	});
 </script>
 
+
+
+
 <div>{JSON.stringify(transactionList)}</div>
