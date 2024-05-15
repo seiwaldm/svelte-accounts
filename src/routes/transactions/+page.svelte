@@ -66,5 +66,5 @@
 	</ul>
 {/if}
 
-<TransactionsBarChart transactions={filteredData} />
-<BalanceLineChart transactions={filteredData} />
+<!-- <TransactionsBarChart transactions={filteredData} />
+<BalanceLineChart transactions={filteredData} /> -->
