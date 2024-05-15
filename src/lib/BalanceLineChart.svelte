@@ -1,6 +1,7 @@
 <script>
 	import { Line } from 'svelte-chartjs';
 	import 'chart.js/auto';
+	import 'chartjs-adapter-date-fns';
 
 	export let transactions;
 

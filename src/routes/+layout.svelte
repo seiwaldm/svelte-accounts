@@ -3,8 +3,7 @@
 	import { supabase } from '$lib/supabase';
 	import '../app.postcss';
 	import { session, theme } from '$lib/store';
-	import { browser } from '$app/environment';
-	import { accountList } from '$lib/store';
+	import { accountList, accounts, transactions } from '$lib/store';
 	onMount(() => {
 		supabase.auth.getSession().then(({ data }) => {
 			$session = data.session;
@@ -12,11 +11,29 @@
 				.from('account_list')
 				.select('*')
 				.then((response) => ($accountList = response.data));
+			supabase
+				.from('accounts')
+				.select('*')
+				.then((response) => ($accounts = response.data));
+
+			supabase
+				.from('transactions')
+				.select('*')
+				.then((response) => ($transactions = response.data));
+
 			// document.cookie = `jwt=${JSON.stringify(data.session)}`;
 		});
 
 		supabase.auth.onAuthStateChange((_event, _session) => {
 			$session = _session;
+			supabase
+				.from('accounts')
+				.select('*')
+				.then((response) => ($accounts = response.data));
+			supabase
+				.from('transactions')
+				.select('*')
+				.then((response) => ($transactions = response.data));
 			// document.cookie = `jwt=${JSON.stringify(_session)}`;
 		});
 	});

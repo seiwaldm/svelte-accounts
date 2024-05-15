@@ -4,6 +4,7 @@
 	import { supabase } from '$lib/supabase';
 	import { session } from '$lib/store';
 	import Avatar from '$lib/Avatar.svelte';
+	import TransactionsBarChart from '$lib/TransactionsBarChart.svelte';
 
 	let loading = false;
 	let username: string | null = null;
