@@ -22,7 +22,7 @@ export async function POST({ request }) {
         .update([
             (dummy.receiver_id.balance = dummy.receiver_id.balance + dummy.amount),
             (dummy.sender_id.balance = dummy.sender_id.balance - dummy.amount)
-        ]);
+        ]); //insert statt update!
     if (error)
         return new Response(
             "oh no... seems we have database issues... relax, it's not your fault! plz contact our admin...",
