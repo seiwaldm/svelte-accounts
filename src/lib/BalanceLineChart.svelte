@@ -19,7 +19,7 @@
 		labels: days, //Datum
 		datasets: [
 			{
-				label: 'My First Dataset',
+				label: 'My balance',
 				data: [65, 59, 80, 81], //Balnace
 				fill: false,
 				borderColor: 'rgb(75, 192, 192)',
