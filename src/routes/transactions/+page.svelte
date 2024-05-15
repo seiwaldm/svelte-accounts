@@ -19,9 +19,6 @@
 	});
 </script>
 
-
-
-
 <div>{JSON.stringify(transactionList)}</div>
 
 {#await transaction}
@@ -37,6 +34,6 @@
 	</ul>
 {/await}
 
-<TransactionsBarChart transactions={transactionList} />
+<!-- <TransactionsBarChart transactions={transactionList} />
 
-<BalanceLineChart transactions={transactionList} />
+<BalanceLineChart transactions={transactionList} /> -->
