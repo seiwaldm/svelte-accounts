@@ -2,7 +2,7 @@
 	// import {sender_id} from 'stores/';
 	import { Bar } from 'svelte-chartjs';
 	import 'chart.js/auto';
-	// import { user_id } from 'stores/';
+
 	// export let transactions;
 	// export let sender_id;
 	// export let receiver_id;
