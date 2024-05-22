@@ -30,7 +30,7 @@
 			filteredData = transactionList.filter((transaction) => transaction.amount == filterValue);
 		} else if (filterType === 'date') {
 			filteredData = transactionList.filter((transaction) =>
-				transaction.created_at.includes(filterValue)
+				transaction.created_at.split('T')[0].includes(filterValue)
 			);
 		} else if (filterType === 'purpose') {
 			filteredData = transactionList.filter((transaction) =>
