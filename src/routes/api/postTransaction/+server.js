@@ -1,5 +1,6 @@
 
 import { supabase } from '$lib/supabase';
+import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
 
 export async function POST({ request, cookies }) {
 
@@ -7,6 +8,9 @@ export async function POST({ request, cookies }) {
 	const data = await request.json();
 	const session = JSON.parse(cookies.get("session"));
 	const accountList = JSON.parse(cookies.get("account_list"));
+
+	console.log("session:", session);
+	console.log("accountList:", accountList);
 
 	//TODO: check if the sender_id corresponds to an account of the logged in user:
 
@@ -19,6 +23,12 @@ export async function POST({ request, cookies }) {
 
 
 	//TODO: perform insert operation and return response to the frontend:
+	const response = await fetch(PUBLIC_SUPABASE_URL + "/rest/v1/transactions", {
+		method: "POST",
+		headers: {},
+		body: {}
+	});
+
 	return new Response("Transaction done", { status: 200 });
 
 	//LEGACY CODE:
