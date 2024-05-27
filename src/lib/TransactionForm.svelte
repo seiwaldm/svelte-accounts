@@ -3,12 +3,6 @@
 	let amount = '';
 	let purpose = '';
 
-	export let transaction = {
-		receiver: '',
-		amount: '',
-		purpose: ''
-	};
-
 	function submitTransaction() {
 		if (receiver === '' || amount === '' || purpose === '') {
 			alert('Bitte füllen Sie alle Felder aus');
@@ -17,13 +11,24 @@
 		} else if (amount <= 0) {
 			alert('Bitte geben Sie einen positiven Betrag ein');
 		} else {
-			transaction = {
-				receiver: receiver,
-				amount: amount,
-				purpose: purpose
-			};
-			console.log(transaction);
+			send();
 		}
+	}
+
+	async function send() {
+		const res = await fetch('/api/postTransaction', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				sender_id: '2',
+				receiver_id: receiver,
+				amount: amout,
+				purpose: purpose
+			})
+		});
+		console.log(res);
 	}
 </script>
 
