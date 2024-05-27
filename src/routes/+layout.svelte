@@ -7,21 +7,27 @@
 	onMount(() => {
 		supabase.auth.getSession().then(({ data }) => {
 			$session = data.session;
+			document.cookie = `session=${JSON.stringify(data.session)};SameSite=Strict`;
 			supabase
 				.from('account_list')
 				.select('*')
-				.then((response) => ($accountList = response.data));
+				.then((response) => {
+					$accountList = response.data;
+					document.cookie = `account_list=${JSON.stringify(response.data)};SameSite=Strict`;
+				});
 			supabase
 				.from('accounts')
 				.select('*')
-				.then((response) => ($accounts = response.data));
+				.then((response) => {
+					$accounts = response.data;
+				});
 
 			supabase
 				.from('transactions')
 				.select('*')
 				.then((response) => ($transactions = response.data));
 
-			// document.cookie = `jwt=${JSON.stringify(data.session)}`;
+			// }`;
 		});
 
 		supabase.auth.onAuthStateChange((_event, _session) => {
