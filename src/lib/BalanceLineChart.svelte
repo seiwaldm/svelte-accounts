@@ -1,66 +1,57 @@
 <script>
 	import { Line } from 'svelte-chartjs';
+	import { transactions, accounts } from '$lib/store';
 	import 'chart.js/auto';
-	const data = {
-		labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-		datasets: [
-			{
-				label: 'My First Dataset',
-				data: [65, 59, 80, 81, 56, 55, 40],
-				fill: false,
-				borderColor: 'rgb(75, 192, 192)',
-				tension: 0.1
+	import 'chartjs-adapter-date-fns';
+	import { onMount } from 'svelte';
+
+	//export let transactions;
+
+	//Absteigende Sortierung!
+	let sortedTransactions = $transactions.sort(
+		(a, b) => new Date(b.created_at) - new Date(a.created_at)
+	);
+	let currentBalance = $accounts[0].balance;
+
+	let calculatedBalance = [];
+
+	let chartOptions = {
+		scales: {
+			x: {
+				type: 'time'
 			}
-		]
+		}
 	};
-	const complex = {
-		labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+
+	onMount(() => {
+		sortedTransactions.forEach((transaction) => {
+			if (transaction.sender_id === $accounts[0].id) {
+				console.log('sender');
+				currentBalance += transaction.amount; //wir gehen von hinten nach vorne vor, also plus für Ausgaben
+				calculatedBalance.push({
+					x: transaction.created_at,
+					y: currentBalance
+				});
+				calculatedBalance = calculatedBalance;
+			} else if (transaction.receiver_id === $accounts[0].id) {
+				currentBalance -= transaction.amount;
+				calculatedBalance.push({
+					x: transaction.created_at,
+					y: currentBalance
+				});
+				calculatedBalance = calculatedBalance;
+			}
+		});
+		chartData.datasets[0].data = calculatedBalance;
+	});
+
+	const chartData = {
 		datasets: [
 			{
-				label: 'My First dataset',
-				fill: true,
-				lineTension: 0.3,
-				backgroundColor: 'rgba(225, 204,230, .3)',
-				borderColor: 'rgb(205, 130, 158)',
-				borderCapStyle: 'butt',
-				borderDash: [],
-				borderDashOffset: 0.0,
-				borderJoinStyle: 'miter',
-				pointBorderColor: 'rgb(205, 130,1 58)',
-				pointBackgroundColor: 'rgb(255, 255, 255)',
-				pointBorderWidth: 10,
-				pointHoverRadius: 5,
-				pointHoverBackgroundColor: 'rgb(0, 0, 0)',
-				pointHoverBorderColor: 'rgba(220, 220, 220,1)',
-				pointHoverBorderWidth: 2,
-				pointRadius: 1,
-				pointHitRadius: 10,
-				data: [65, 59, 80, 81, 56, 55, 40]
-			},
-			{
-				label: 'My Second dataset',
-				fill: true,
-				lineTension: 0.3,
-				backgroundColor: 'rgba(184, 185, 210, .3)',
-				borderColor: 'rgb(35, 26, 136)',
-				borderCapStyle: 'butt',
-				borderDash: [],
-				borderDashOffset: 0.0,
-				borderJoinStyle: 'miter',
-				pointBorderColor: 'rgb(35, 26, 136)',
-				pointBackgroundColor: 'rgb(255, 255, 255)',
-				pointBorderWidth: 10,
-				pointHoverRadius: 5,
-				pointHoverBackgroundColor: 'rgb(0, 0, 0)',
-				pointHoverBorderColor: 'rgba(220, 220, 220, 1)',
-				pointHoverBorderWidth: 2,
-				pointRadius: 1,
-				pointHitRadius: 10,
-				data: [28, 48, 40, 19, 86, 27, 90]
+				data: calculatedBalance
 			}
 		]
 	};
 </script>
 
-<Line {data} />
-<Line data={complex} />
+<Line data={chartData} options={chartOptions} />
