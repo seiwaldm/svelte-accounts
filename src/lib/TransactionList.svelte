@@ -1,5 +1,5 @@
 <script>
-	import { accountList, transactions } from '$lib/store';
+	import { transactions } from '$lib/store';
 	import Transaction from '$lib/Transaction.svelte';
 </script>
 

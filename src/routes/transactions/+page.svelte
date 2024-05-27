@@ -4,6 +4,7 @@
 	import { onMount } from 'svelte';
 	import TransactionsBarChart from '$lib/TransactionsBarChart.svelte';
 
+
 	let transactionList = [];
 	let filteredData = [];
 	let filterType = '';
@@ -42,6 +43,7 @@
 	}
 </script>
 
+
 <div>
 	<label for="filterType">Filter by:</label>
 	<select id="filterType" bind:value={filterType}>
@@ -70,3 +72,4 @@
 
 <!-- <TransactionsBarChart transactions={filteredData} />
 <BalanceLineChart transactions={filteredData} /> -->
+
