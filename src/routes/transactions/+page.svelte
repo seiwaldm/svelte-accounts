@@ -14,6 +14,7 @@
 		transactionList = transactions;
 	}
 
+	
 	onMount(() => {
 		getTransactions();
 	});
