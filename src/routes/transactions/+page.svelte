@@ -17,6 +17,7 @@
 		filteredData = [...transactionList];
 	}
 
+	
 	onMount(() => {
 		getTransactions();
 	});
@@ -35,6 +36,7 @@
 			);
 		} else if (filterType === 'purpose') {
 			filteredData = transactionList.filter((transaction) =>
+				//bei manchen Transactions ist kein purpose vorhanden, daher gibt es hier einen Fehler
 				transaction.purpose.toLowerCase().includes(filterValue.toLowerCase())
 			);
 		}
