@@ -1,4 +1,7 @@
 <script>
+	import { accounts } from '$lib/store';
+
+	const sender = $accounts[0].id;
 	let receiver = '';
 	let amount = '';
 	let purpose = '';
@@ -22,7 +25,7 @@
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				sender_id: '2',
+				sender_id: sender,
 				receiver_id: receiver,
 				amount: amout,
 				purpose: purpose
