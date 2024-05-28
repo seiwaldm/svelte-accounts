@@ -9,7 +9,7 @@
 <div>
 	<span>{receiver_id}</span>
 	<span>{sender_id}</span>
-	<span>-{amount}</span>
+	<span>{amount}</span>
 	<span>{purpose}</span>
 	<span>{created_at}</span>
 </div>
