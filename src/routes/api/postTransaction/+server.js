@@ -7,8 +7,8 @@ export async function POST({ request, cookies }) {
 	const session = JSON.parse(cookies.get('session'));
 	const accountList = JSON.parse(cookies.get('account_list'));
 
-	console.log('session:', session);
-	console.log('accountList:', accountList);
+	// console.log('session:', session);
+	// console.log('accountList:', accountList);
 
 	//TODO: check if the sender_id corresponds to an account of the logged in user
 
@@ -42,8 +42,7 @@ export async function POST({ request, cookies }) {
 				purpose: data.purpose
 			})
 	});
-	console.log('response:', response);
-	return new Response('Transaction done', { status: 200 });
+	return response;
 
 	//LEGACY CODE:
 	// if ($accounts.map(account => account.id).includes(dummy.sender_id)) {
