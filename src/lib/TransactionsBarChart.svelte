@@ -4,7 +4,7 @@
 	import 'chart.js/auto';
 
 	const income = transactions.reduce((total, transaction) => {
-		if (transaction.type === 'Einnahme') {
+		if (receiver_id === 'Einnahmen') {
 			return total + transaction.amount;
 		} else {
 			return total;
@@ -12,7 +12,7 @@
 	}, 0);
 
 	const expenses = transactions.reduce((total, transaction) => {
-		if (transaction.type === 'Ausgabe') {
+		if (sender_id === 'Ausgaben') {
 			return total + transaction.amount;
 		} else {
 			return total;
