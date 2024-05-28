@@ -18,3 +18,6 @@
 {/if}
 
 <h1>transactions</h1>
+
+<style>
+</style>
