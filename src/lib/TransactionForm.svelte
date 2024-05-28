@@ -1,7 +1,7 @@
 <script>
 	import { accounts } from '$lib/store';
 
-	const sender = $accounts[0].id;
+	let sender = $accounts[0].id;
 	let receiver = '';
 	let amount = '';
 	let purpose = '';
