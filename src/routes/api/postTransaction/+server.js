@@ -42,7 +42,7 @@ export async function POST({ request, cookies }) {
 				purpose: data.purpose
 			})
 	});
-
+	console.log('response:', response);
 	return new Response('Transaction done', { status: 200 });
 
 	//LEGACY CODE:
