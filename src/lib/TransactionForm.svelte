@@ -2,9 +2,10 @@
 	import { accounts, accountList } from '$lib/store';
 
 	let sender = $accounts[0].id;
-	let receiver = '';
+	let receiverID = '';
 	let amount = '';
 	let purpose = '';
+	let receiverName = 'Empfänger';
 
 	let list = $accountList;
 
@@ -35,6 +36,11 @@
 		});
 		console.log(res);
 	}
+
+	function setReceiver(id, name) {
+		receiverID = id;
+		receiverName = name;
+	}
 </script>
 
 <!-- The button to open modal -->
@@ -51,7 +57,7 @@
 					type="text"
 					placeholder="Empfänger"
 					class="input input-bordered w-full max-w-xs"
-					bind:value={receiver}
+					bind:value={receiverID}
 				/>
 				<input
 					type="number"
@@ -73,6 +79,19 @@
 		</div>
 	</div>
 </div>
-<div>
-	{JSON.stringify($accountList)}
+<div />
+<div class="dropdown dropdown-right">
+	<button tabindex="-1" class="btn m-1">Empfänger</button>
+	<ul tabindex="-1" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+		{#each list as account}
+			<button class="btn" on:click={setReceiver(account.id, account.designation)}>
+				{JSON.stringify(account.designation).substring(
+					1,
+					JSON.stringify(account.designation).length - 1
+				)}
+			</button>
+		{/each}
+	</ul>
 </div>
+
+{receiverName}
