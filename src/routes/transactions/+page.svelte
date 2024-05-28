@@ -3,12 +3,18 @@
 	import { supabase } from '$lib/supabase';
 	import { onMount } from 'svelte';
 	import TransactionsBarChart from '$lib/TransactionsBarChart.svelte';
-
+	import RangeCalendar from '$lib/components/ui/range-calendar/range-calendar.svelte';
+	import RangeCalendarCell from '$lib/components/ui/range-calendar/range-calendar-cell.svelte';
+	import RangeCalendarDay from '$lib/components/ui/range-calendar/range-calendar-day.svelte';
+	import RangeCalendarHeader from '$lib/components/ui/range-calendar/range-calendar-header.svelte';
 
 	let transactionList = [];
 	let filteredData = [];
 	let filterType = '';
 	let filterValue = '';
+	let startDate = '';
+	let endDate = '';
+	let result = '';
 
 	async function getTransactions() {
 		let { data: transactions, error } = await supabase.from('transactions').select('*');
@@ -29,10 +35,23 @@
 
 		if (filterType === 'amount') {
 			filteredData = transactionList.filter((transaction) => transaction.amount == filterValue);
+			// } else if (filterType === 'date') {
+			// RangeCalendar.show();
+			// filteredData = transactionList.filter((transaction) =>
+			// 	transaction.created_at.split('T')[0].includes(filterValue)
+			// );
 		} else if (filterType === 'date') {
-			filteredData = transactionList.filter((transaction) =>
-				transaction.created_at.split('T')[0].includes(filterValue)
-			);
+			if (startDate && endDate) {
+				const start = new Date(startDate).getTime();
+				const end = new Date(endDate).getTime();
+
+				filteredData = transactionList.filter((transaction) => {
+					const transactionDate = new Date(transaction.created_at).getTime();
+					return transactionDate >= start && transactionDate <= end;
+				});
+			} else {
+				filteredData = [...transactionList];
+			}
 		} else if (filterType === 'purpose') {
 			filteredData = transactionList.filter((transaction) => {
 				if (transaction.purpose) {
@@ -44,7 +63,6 @@
 	}
 </script>
 
-
 <div>
 	<label for="filterType">Filter by:</label>
 	<select id="filterType" bind:value={filterType}>
@@ -55,6 +73,13 @@
 
 	<input type="text" bind:value={filterValue} placeholder="Enter filter value" />
 	<button on:click={applyFilter}>Apply Filter</button>
+	<div class="rounded-md border max-w-min text-black bg-slate-300">
+		{#if filterType === 'date'}
+			<RangeCalendar {startDate} {endDate} on:change={applyFilter} />
+			<input type="date" bind:value={startDate} />
+			<input type="date" bind:value={endDate} />
+		{/if}
+	</div>
 </div>
 
 {#if transactionList.length === 0}
@@ -73,4 +98,3 @@
 
 <!-- <TransactionsBarChart transactions={filteredData} />
 <BalanceLineChart transactions={filteredData} /> -->
-
