@@ -8,9 +8,7 @@
 
 <DummyTransaction />
 
-<TransactionForm />
 <div class="prose">
-
 	<TransactionList />
 	<Transaction
 		receiver_id="123456789"
