@@ -18,6 +18,7 @@
 		purpose="Pizza"
 		created_at="2024-04-21"
 	/>
-	{JSON.stringify($accounts)}
+
+	{JSON.stringify($accounts)} 
 	{JSON.stringify($transactions)}
 </div>
