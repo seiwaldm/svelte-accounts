@@ -33,4 +33,12 @@
 	// oben gebt ihr zwei Labels an, das heißt, dass hier unter data auch zwei Werte stehen müssen, die die beiden Labels repräsentieren... entweder könnt ihr das mit der reduce-Methode machen (2x unabhängig voneinander - für Ausgaben und für Einnahmen), oder ihr iteriert mit einer for-Schleife über die transactions und erledigt mit einer if-Anweisung die Zurechnung zum richtigen Summenwert (Einnahme oder Ausgabe) -> unabhängig davon,, welchen Weg ihr wählt, würde ich die Berechung außerhalb der data-Konstante durchführen und nur das Ergebnis hier unter data.datasets.data eintragen
 </script>
 
-<Bar {data} />
+<Bar
+	{data}
+	
+	options={{
+		legend: {
+			display: false
+		}
+	}}
+/>
