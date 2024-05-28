@@ -8,7 +8,6 @@
 
 <DummyTransaction />
 
-<TransactionForm />
 <div class="prose">
 	<TransactionList />
 	<Transaction

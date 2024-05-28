@@ -4,6 +4,7 @@
 	import { onMount } from 'svelte';
 	import TransactionsBarChart from '$lib/TransactionsBarChart.svelte';
 
+
 	let transactionList = [];
 	let filteredData = [];
 	let filterType = '';
@@ -16,7 +17,6 @@
 		filteredData = [...transactionList];
 	}
 
-	
 	onMount(() => {
 		getTransactions();
 	});
@@ -34,13 +34,16 @@
 				transaction.created_at.split('T')[0].includes(filterValue)
 			);
 		} else if (filterType === 'purpose') {
-			filteredData = transactionList.filter((transaction) =>
-				//bei manchen Transactions ist kein purpose vorhanden, daher gibt es hier einen Fehler
-				transaction.purpose.toLowerCase().includes(filterValue.toLowerCase())
-			);
+			filteredData = transactionList.filter((transaction) => {
+				if (transaction.purpose) {
+					return transaction.purpose.toLowerCase().includes(filterValue.toLowerCase());
+				}
+				return false;
+			});
 		}
 	}
 </script>
+
 
 <div>
 	<label for="filterType">Filter by:</label>
@@ -70,3 +73,4 @@
 
 <!-- <TransactionsBarChart transactions={filteredData} />
 <BalanceLineChart transactions={filteredData} /> -->
+

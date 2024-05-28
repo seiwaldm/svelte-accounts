@@ -1,13 +1,12 @@
 <script>
+	import { accounts, accountList } from '$lib/store';
+
+	let sender = $accounts[0].id;
 	let receiver = '';
 	let amount = '';
 	let purpose = '';
 
-	export let transaction = {
-		receiver: '',
-		amount: '',
-		purpose: ''
-	};
+	let list = $accountList;
 
 	function submitTransaction() {
 		if (receiver === '' || amount === '' || purpose === '') {
@@ -17,13 +16,24 @@
 		} else if (amount <= 0) {
 			alert('Bitte geben Sie einen positiven Betrag ein');
 		} else {
-			transaction = {
-				receiver: receiver,
+			send();
+		}
+	}
+
+	async function send() {
+		const res = await fetch('/api/postTransaction', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				sender_id: sender,
+				receiver_id: receiver,
 				amount: amount,
 				purpose: purpose
-			};
-			console.log(transaction);
-		}
+			})
+		});
+		console.log(res);
 	}
 </script>
 
@@ -63,4 +73,6 @@
 		</div>
 	</div>
 </div>
-<!-- Rabbits beispiel anschauen -->
+<div>
+	{JSON.stringify($accountList)}
+</div>
