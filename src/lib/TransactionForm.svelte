@@ -1,10 +1,12 @@
 <script>
-	import { accounts } from '$lib/store';
+	import { accounts, accountList } from '$lib/store';
 
 	let sender = $accounts[0].id;
 	let receiver = '';
 	let amount = '';
 	let purpose = '';
+
+	let list = $accountList;
 
 	function submitTransaction() {
 		if (receiver === '' || amount === '' || purpose === '') {
@@ -27,7 +29,7 @@
 			body: JSON.stringify({
 				sender_id: sender,
 				receiver_id: receiver,
-				amount: amout,
+				amount: amount,
 				purpose: purpose
 			})
 		});
@@ -71,4 +73,6 @@
 		</div>
 	</div>
 </div>
-<!-- Rabbits beispiel anschauen -->
+<div>
+	{JSON.stringify($accountList)}
+</div>
