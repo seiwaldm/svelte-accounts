@@ -7,7 +7,15 @@
 	let purpose = '';
 	let receiverName = 'Empfänger';
 
-	let list = $accountList;
+	let list = [...$accountList].sort((a, b) => {
+		if (a.designation.toLowerCase() < b.designation.toLowerCase()) {
+			return -1;
+		}
+		if (a.designation.toLowerCase() > b.designation.toLowerCase()) {
+			return 1;
+		}
+		return 0;
+	});
 
 	function submitTransaction() {
 		if (receiver === '' || amount === '' || purpose === '') {
@@ -53,12 +61,23 @@
 		<h3 class="font-bold text-lg">Neue Überweisung</h3>
 		<p class="py-4">
 			<label class="form-control w-full max-w-xs">
-				<input
-					type="text"
-					placeholder="Empfänger"
-					class="input input-bordered w-full max-w-xs"
-					bind:value={receiverID}
-				/>
+				<div class="dropdown dropdown-right">
+					<button tabindex="-1" class="btn btn-wide">{receiverName}</button>
+					<ul
+						tabindex="-1"
+						z-index="5"
+						class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+					>
+						{#each list as account}
+							<li>
+								<button class="btn" on:click={() => setReceiver(account.id, account.designation)}>
+									{account.designation}
+								</button>
+							</li>
+						{/each}
+					</ul>
+				</div>
+
 				<input
 					type="number"
 					placeholder="Betrag"
@@ -80,18 +99,3 @@
 	</div>
 </div>
 <div />
-<div class="dropdown dropdown-right">
-	<button tabindex="-1" class="btn m-1">Empfänger</button>
-	<ul tabindex="-1" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-		{#each list as account}
-			<button class="btn" on:click={setReceiver(account.id, account.designation)}>
-				{JSON.stringify(account.designation).substring(
-					1,
-					JSON.stringify(account.designation).length - 1
-				)}
-			</button>
-		{/each}
-	</ul>
-</div>
-
-{receiverName}
