@@ -19,18 +19,39 @@
 		}
 	}, 0);
 
-	const data = {
-		labels: ['Einnahmen', 'Ausgaben'],
-		datasets: [
-			{
-				data: [income, expenses],
-				backgroundColor: ['#36A2EB', '#FF6384'],
-				borderColor: ['rgb(159, 226, 191)', 'rgb(222, 49, 99)'],
-				borderWidth: 2
-			}
-		]
-	};
-	// oben gebt ihr zwei Labels an, das heißt, dass hier unter data auch zwei Werte stehen müssen, die die beiden Labels repräsentieren... entweder könnt ihr das mit der reduce-Methode machen (2x unabhängig voneinander - für Ausgaben und für Einnahmen), oder ihr iteriert mit einer for-Schleife über die transactions und erledigt mit einer if-Anweisung die Zurechnung zum richtigen Summenwert (Einnahme oder Ausgabe) -> unabhängig davon,, welchen Weg ihr wählt, würde ich die Berechung außerhalb der data-Konstante durchführen und nur das Ergebnis hier unter data.datasets.data eintragen
-</script>
+	const data1 = {
+  labels: ['Einnahmen'],
+  datasets: [
+    {
+      label: 'Einnahmen',
+      data: [income],
+      backgroundColor: ['#36A2EB'], // Blau
+      borderColor: ['rgb(159, 226, 191)'],
+      borderWidth: 2
+    }]};
 
-<Bar {data} />
+const data2 = {
+	  labels: ['Ausgaben'],
+	  datasets: [
+    {
+      label: 'Ausgaben',
+      data: [expenses],
+      backgroundColor: ['#FF6384'], // Pink
+      borderColor: ['rgb(222, 49, 99)'],
+      borderWidth: 2
+    }
+  ]
+};
+	// 	datasets: [
+	// 		{
+	// 			label: 'Einnahmen und Ausgaben',
+	// 			data: [income, expenses],
+	// 			backgroundColor: ['#36A2EB', '#FF6384'],
+	// 			borderColor: ['rgb(159, 226, 191)', 'rgb(222, 49, 99)'],
+	// 			borderWidth: 2
+	// 		}
+	// 	]
+	// };
+</script>
+<Bar {data1} />
+<!-- <Bar {data1||data2} /> -->
