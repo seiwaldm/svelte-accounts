@@ -50,7 +50,7 @@ $accountList.forEach(account => {
 	  <p>{created_at} | {purpose}</p>
 	</div>
 </div>
-{JSON.stringify($accountList)}
+<!-- {JSON.stringify($accountList)} -->
 
 
 
