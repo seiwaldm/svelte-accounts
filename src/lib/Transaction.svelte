@@ -23,13 +23,15 @@
 			: `-${transaction.amount}`;
 	}
 
-// if
-// if(sender_id = user_id) {
-// account.id === "revenue";
-// }
-// else {
-// 	account.id === "expense";
-// }
+// Name des sender_id anzeigen
+let senderName = '';
+$accountList.forEach(account => {
+	if (account.id === sender_id) {
+		senderName = account.designation;
+	}
+});
+
+
 
 
 </script>
@@ -38,7 +40,8 @@
 <div class="collapse collapse-plus bg-base-200">
 	<input type="radio" name="my-accordion-3" checked="checked" /> 
 	<div class="collapse-title text-xl font-medium {transactionClass}" >
-		{sender_id} 
+		<!-- {sender_id}  -->
+		{senderName}
 		| Amount: 
 		{amount}
 		<!--  {transactionClass} -->
