@@ -1,11 +1,16 @@
 <script>
 	import { accounts, accountList } from '$lib/store';
+	import Icon from '@iconify/svelte';
 
 	let sender = $accounts[0].id;
 	let receiverID = '';
 	let amount = '';
 	let purpose = '';
 	let receiverName = 'Empfänger';
+
+	let hidden = true;
+	let buttonText = 'Neue Überweisung';
+	let error = '';
 
 	let list = [...$accountList].sort((a, b) => {
 		if (a.designation.toLowerCase() < b.designation.toLowerCase()) {
@@ -18,15 +23,17 @@
 	});
 
 	function submitTransaction() {
-		if (receiver === '' || amount === '' || purpose === '') {
-			alert('Bitte füllen Sie alle Felder aus');
+		if (receiverID === '' || amount === '' || purpose === '') {
+			error = 'Bitte füllen Sie alle Felder aus';
 		} else if (!Number.isInteger(amount)) {
-			alert('Bitte geben Sie eine Zahl als Betrag ein');
+			error = 'Der Betrag muss eine ganze Zahl sein';
 		} else if (amount <= 0) {
-			alert('Bitte geben Sie einen positiven Betrag ein');
+			error = 'Der Betrag muss größer als 0 sein';
 		} else {
+			error = '';
 			send();
 		}
+		console.log(receiverID, amount, purpose, error);
 	}
 
 	async function send() {
@@ -37,7 +44,7 @@
 			},
 			body: JSON.stringify({
 				sender_id: sender,
-				receiver_id: receiver,
+				receiver_id: receiverID,
 				amount: amount,
 				purpose: purpose
 			})
@@ -49,15 +56,25 @@
 		receiverID = id;
 		receiverName = name;
 	}
+
+	function openForm() {
+		hidden = !hidden;
+		amount = '';
+		purpose = '';
+		receiverID = '';
+		receiverName = 'Empfänger';
+		if (hidden) {
+			buttonText = 'Neue Überweisung';
+		} else {
+			buttonText = 'Verwerfen';
+		}
+	}
 </script>
 
-<!-- The button to open modal -->
-<label for="my_modal_6" class="btn">Neue Überweisung</label>
+<button class="btn" on:click={openForm}>{buttonText}</button>
 
-<!-- Put this part before </body> tag -->
-<input type="checkbox" id="my_modal_6" class="modal-toggle" />
-<div class="modal" role="dialog">
-	<div class="modal-box">
+{#if !hidden}
+	<div class="card">
 		<h3 class="font-bold text-lg">Neue Überweisung</h3>
 		<p class="py-4">
 			<label class="form-control w-full max-w-xs">
@@ -70,7 +87,10 @@
 					>
 						{#each list as account}
 							<li>
-								<button class="btn" on:click={() => setReceiver(account.id, account.designation)}>
+								<button
+									class="btn max-w-xs"
+									on:click={() => setReceiver(account.id, account.designation)}
+								>
 									{account.designation}
 								</button>
 							</li>
@@ -92,10 +112,28 @@
 				/>
 			</label>
 		</p>
-		<div class="modal-action">
-			<button class="btn" on:click={submitTransaction}>Freigeben</button>
-			<label for="my_modal_6" class="btn">verwerfen</label>
-		</div>
+
+		<button class="btn max-w-xs" onclick="my_modal_3.showModal()" on:click={submitTransaction}
+			>Freigeben</button
+		>
+		<dialog id="my_modal_3" class="modal">
+			{#if error !== ''}
+				<div class="modal-box">
+					<form method="dialog">
+						<button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+					</form>
+					<p class="py-4">{error}</p>
+				</div>
+			{:else}
+				<div class="modal-box">
+					<form method="dialog">
+						<button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+					</form>
+					<span class="py-4">
+						<Icon icon="formkit:check" class="inline" /> Die Transaktion wurde freigegeben
+					</span>
+				</div>
+			{/if}
+		</dialog>
 	</div>
-</div>
-<div />
+{/if}
