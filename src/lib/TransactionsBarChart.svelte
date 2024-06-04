@@ -32,12 +32,17 @@
 		{
 		  label: 'Ausgaben',
 		  data: [expenses],
+		  font: {
+			size: 18
+		  },
 		  backgroundColor: ['rgba(238, 28, 28,0.4)'], // Pink
 		  borderColor: ['rgba(238, 28, 28, 0.7)'],
 		  borderWidth: 2
 		}
 	  ]
 	};
+
+	
   </script>
   
-  <Bar {data} />
+  <Bar {data}/>
