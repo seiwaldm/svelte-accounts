@@ -3,6 +3,7 @@
 	import { supabase } from '$lib/supabase';
 	import { onMount } from 'svelte';
 	import TransactionsBarChart from '$lib/TransactionsBarChart.svelte';
+	//import { Datepicker } from 'svelte-calendar';
 	import RangeCalendar from '$lib/components/ui/range-calendar/range-calendar.svelte';
 
 	let transactionList = [];
@@ -70,7 +71,7 @@
 	{#if filterType === 'date'}
 		<button on:click={applyFilter}>Apply Filter</button>
 		<div class="rounded-md border max-w-min text-black bg-slate-300">
-			<RangeCalendar {startDate} {endDate} on:change={handleDateChange} />
+			<RangeCalendar on:click={handleDateChange} />
 		</div>
 
 		<input type="date" bind:value={startDate} />
@@ -98,4 +99,4 @@
 {/if}
 
 <!-- <TransactionsBarChart transactions={filteredData} />
-  <BalanceLineChart transactions={filteredData} /> -->
+<BalanceLineChart transactions={filteredData} /> -->
