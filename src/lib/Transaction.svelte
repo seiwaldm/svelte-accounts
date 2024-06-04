@@ -44,7 +44,7 @@
 		<!--  {transactionClass} -->
 	</div>
 	<div class="collapse-content"> 
-	  <p>{created_at}</p>
+	  <p>{created_at} | {purpose}</p>
 	</div>
 </div>
 {JSON.stringify($accountList)}
