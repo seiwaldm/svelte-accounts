@@ -5,6 +5,7 @@
 	import TransactionsBarChart from '$lib/TransactionsBarChart.svelte';
 	//import { Datepicker } from 'svelte-calendar';
 	import RangeCalendar from '$lib/components/ui/range-calendar/range-calendar.svelte';
+	import { getLocalTimeZone, today } from '@internationalized/date';
 
 	let transactionList = [];
 	let filteredData = [];
@@ -29,12 +30,15 @@
 
 	function applyFilter() {
 		if (filterType === 'date') {
-			if (startDate && endDate) {
-				const start = new Date(startDate).getTime();
-				const end = new Date(endDate).getTime();
-				filteredData = transactionList.filter((transaction) => {
-					const transactionDate = new Date(transaction.created_at).getTime();
-					return transactionDate >= start && transactionDate <= end;
+			if (value.start && value.end) {
+				const startDate = new Date(value.start);
+				const endDate = new Date(value.end);
+				transactionList.forEach((transaction) => {
+					const transactionDate = new Date(transaction.created_at);
+					if (transactionDate >= startDate && transactionDate <= endDate) {
+						console.log(transaction);
+						filteredData.push(transaction);
+					}
 				});
 			} else {
 				filteredData = [...transactionList];
@@ -58,8 +62,15 @@
 		endDate = event.detail.endDate;
 		applyFilter();
 	}
+
+	// let value = { start, end };
+	let value = {};
 </script>
 
+{#if value}
+	{value.start}
+	{value.end}
+{/if}
 <div>
 	<label for="filterType">Filter by:</label>
 	<select id="filterType" bind:value={filterType}>
@@ -71,7 +82,7 @@
 	{#if filterType === 'date'}
 		<button on:click={applyFilter}>Apply Filter</button>
 		<div class="rounded-md border max-w-min text-black bg-slate-300">
-			<RangeCalendar on:click={handleDateChange} />
+			<RangeCalendar bind:value />
 		</div>
 
 		<input type="date" bind:value={startDate} />
