@@ -91,5 +91,7 @@
 	</ul>
 {/if}
 
-<!-- <TransactionsBarChart transactions={filteredData} />
-<BalanceLineChart transactions={filteredData} /> -->
+{#key filteredData}
+	<TransactionsBarChart transactions={filteredData} />
+{/key}
+<!-- <BalanceLineChart transactions={filteredData} /> -->
