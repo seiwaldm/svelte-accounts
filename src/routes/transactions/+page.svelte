@@ -11,8 +11,6 @@
 	let filteredData = [];
 	let filterType = '';
 	let filterValue = '';
-	let startDate = '';
-	let endDate = '';
 
 	async function getTransactions() {
 		let { data: transactions, error } = await supabase.from('transactions').select('*');
@@ -33,12 +31,9 @@
 			if (value.start && value.end) {
 				const startDate = new Date(value.start);
 				const endDate = new Date(value.end);
-				transactionList.forEach((transaction) => {
+				filteredData = transactionList.filter((transaction) => {
 					const transactionDate = new Date(transaction.created_at);
-					if (transactionDate >= startDate && transactionDate <= endDate) {
-						console.log(transaction);
-						filteredData.push(transaction);
-					}
+					return transactionDate >= startDate && transactionDate <= endDate;
 				});
 			} else {
 				filteredData = [...transactionList];
@@ -57,20 +52,10 @@
 		}
 	}
 
-	function handleDateChange(event) {
-		startDate = event.detail.startDate;
-		endDate = event.detail.endDate;
-		applyFilter();
-	}
-
 	// let value = { start, end };
 	let value = {};
 </script>
 
-{#if value}
-	{value.start}
-	{value.end}
-{/if}
 <div>
 	<label for="filterType">Filter by:</label>
 	<select id="filterType" bind:value={filterType}>
@@ -84,9 +69,6 @@
 		<div class="rounded-md border max-w-min text-black bg-slate-300">
 			<RangeCalendar bind:value />
 		</div>
-
-		<input type="date" bind:value={startDate} />
-		<input type="date" bind:value={endDate} />
 	{/if}
 
 	{#if filterType !== 'date'}
