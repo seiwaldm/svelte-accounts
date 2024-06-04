@@ -1,5 +1,5 @@
 <script>
-	import { accounts, accountList} from '$lib/store';
+	import { accounts, accountList } from '$lib/store';
 
 	export let sender_id;
 	export let receiver_id;
@@ -13,7 +13,7 @@
 
 	// This function determines the class based on whether the user is the receiver or the sender
 	function getClass() {
-		return $accounts.map(account => account.id).includes(sender_id) ? 'expense' : 'revenue';
+		return $accounts.map((account) => account.id).includes(sender_id) ? 'expense' : 'revenue';
 	}
 
 	// This function determines the sign based on whether the user is the receiver or the sender
@@ -23,18 +23,17 @@
 			: `-${transaction.amount}`;
 	}
 </script>
-<hr>
 
 <div class="collapse collapse-plus bg-base-200">
-	<input type="radio" name="my-accordion-3" checked="checked" /> 
-	<div class="collapse-title text-xl font-medium {transactionClass}" >
-	  {sender_id} {transactionClass}
+	<input type="radio" name="my-accordion-3" checked="checked" />
+	<div class="collapse-title text-xl font-medium {transactionClass}">
+		{sender_id}
+		{transactionClass}
 	</div>
-	<div class="collapse-content"> 
-	  <p>{created_at}</p>
+	<div class="collapse-content">
+		<p>{created_at}</p>
 	</div>
 </div>
-{JSON.stringify($accountList)}
 
 <style>
 	.revenue {

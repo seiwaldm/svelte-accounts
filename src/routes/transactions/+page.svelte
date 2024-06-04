@@ -3,6 +3,7 @@
 	import { supabase } from '$lib/supabase';
 	import { onMount } from 'svelte';
 	import TransactionsBarChart from '$lib/TransactionsBarChart.svelte';
+	import TransactionList from '$lib/TransactionList.svelte';
 	//import { Datepicker } from 'svelte-calendar';
 	import RangeCalendar from '$lib/components/ui/range-calendar/range-calendar.svelte';
 	import { getLocalTimeZone, today } from '@internationalized/date';
@@ -80,18 +81,10 @@
 {#if transactionList.length === 0}
 	<span class="loading loading-bars loading-lg text-primary">Loading...</span>
 {:else}
-	<ul>
-		{#each filteredData as transaction (transaction.id)}
-			<li>ID: {transaction.id}</li>
-			<li>Date: {transaction.created_at}</li>
-			<li>Purpose: {transaction.purpose}</li>
-			<li>Amount: {transaction.amount}</li>
-			<li>Sender ID: {transaction.sender_id}</li>
-		{/each}
-	</ul>
+	{#key filteredData}
+		<TransactionList transactions={filteredData} />
+		<TransactionsBarChart transactions={filteredData} />
+	{/key}
 {/if}
 
-{#key filteredData}
-	<TransactionsBarChart transactions={filteredData} />
-{/key}
 <!-- <BalanceLineChart transactions={filteredData} /> -->
