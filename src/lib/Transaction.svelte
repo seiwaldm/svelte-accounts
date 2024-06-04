@@ -22,19 +22,34 @@
 			? `+${transaction.amount}`
 			: `-${transaction.amount}`;
 	}
+
+// if
+// if(sender_id = user_id) {
+// account.id === "revenue";
+// }
+// else {
+// 	account.id === "expense";
+// }
+
+
 </script>
 <hr>
 
 <div class="collapse collapse-plus bg-base-200">
 	<input type="radio" name="my-accordion-3" checked="checked" /> 
 	<div class="collapse-title text-xl font-medium {transactionClass}" >
-	  {sender_id} {transactionClass}
+		{sender_id} 
+		| Amount: 
+		{amount}
+		<!--  {transactionClass} -->
 	</div>
 	<div class="collapse-content"> 
 	  <p>{created_at}</p>
 	</div>
 </div>
 {JSON.stringify($accountList)}
+
+
 
 <style>
 	.revenue {
