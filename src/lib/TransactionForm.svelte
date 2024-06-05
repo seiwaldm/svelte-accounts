@@ -12,15 +12,17 @@
 	let buttonText = 'Neue Überweisung';
 	let error = '';
 
-	let list = [...$accountList].sort((a, b) => {
-		if (a.designation.toLowerCase() < b.designation.toLowerCase()) {
-			return -1;
-		}
-		if (a.designation.toLowerCase() > b.designation.toLowerCase()) {
-			return 1;
-		}
-		return 0;
-	});
+	let list = $accountList;
+
+	// // let list = [...$accountList].sort((a, b) => {
+	// 	if (a.designation.toLowerCase() < b.designation.toLowerCase()) {
+	// 		return -1;
+	// 	}
+	// 	if (a.designation.toLowerCase() > b.designation.toLowerCase()) {
+	// 		return 1;
+	// 	}
+	// 	return 0;
+	// });
 
 	function submitTransaction() {
 		if (receiverID === '' || amount === '' || purpose === '') {
