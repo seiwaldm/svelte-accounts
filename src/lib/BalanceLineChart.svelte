@@ -1,14 +1,15 @@
 <script>
 	import { Line } from 'svelte-chartjs'; // line chart von chart.js
-	import { transactions, accounts } from '$lib/store'; // importiere transactions und accounts aus store
+	import { accounts } from '$lib/store'; // importiere transactions und accounts aus store
 	import 'chart.js/auto'; // importiert chart.js
 	import 'chartjs-adapter-date-fns'; // importiert date-fns für chart.js
 	import { onMount } from 'svelte'; // importiert onMount, um Funktionen auszuführen, wenn Komponente gemountet wird
+	import { transactions } from '$lib/store'; // importiert transactions aus store
 
-	//export let transactions; --> wird nicht mehr benötigt, da transactions und accounts aus store importiert werden
+	//export let transactions; //exportiert transactions, um sie in App.svelte zu verwenden, wird nicht mehr benötigt, da transactions aus store importiert wird
 
 	//Absteigende Sortierung!
-	let sortedTransactions = $transactions.sort(
+	let sortedTransactions = transactions.sort(
 		//sortiert transactions nach Datum, absteigend
 		(a, b) => new Date(b.created_at) - new Date(a.created_at) //sortiert nach Datum
 	);
@@ -40,7 +41,7 @@
 					y: currentBalance //y-Wert ist der aktuelle Kontostand
 				});
 				calculatedBalance = calculatedBalance; //setzt Array auf sich selbst, um es zu aktualisieren, da Svelte sonst keine Änderung erkennt
-			} else if (transaction.receiver_id === $accounts[0].id) {
+			} else if (transaction.receiver_id === accounts[0].id) {
 				//wenn receiver_id des Transactions gleich id des ersten Accounts ist, dann...; wird nur für Testzwecke verwendet
 				currentBalance -= transaction.amount; //wir gehen von hinten nach vorne vor, und rechnen deshalb minus für Einnahmen (zurückrechnen)
 				calculatedBalance.push({
@@ -65,4 +66,6 @@
 	};
 </script>
 
-<Line data={chartData} options={chartOptions} /> /
+<Line data={chartData} options={chartOptions} /> //zeigt Chart an
+<balanceLineChart transactions={$transactions} />; //exportiert transactions, um sie in App.svelte
+zu verwenden
