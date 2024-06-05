@@ -6,6 +6,7 @@ export async function POST({ request, cookies }) {
 	const data = await request.json();
 	const session = JSON.parse(cookies.get('session'));
 	const accountList = JSON.parse(cookies.get('account_list'));
+	const account = JSON.parse(cookies.get('account'));
 
 	//Finde den Account in der accountList, der der Benutzer-ID der Session entspricht:
 	const account = accountList.find((account) => account.user_id === session.user.id);
@@ -18,6 +19,11 @@ export async function POST({ request, cookies }) {
 	//Überprüfe, ob der Betrag positiv ist:
 	if (data.amount <= 0) {
 		return new Response('Amount should be greater than 0', { status: 400 });
+	}
+
+	//Überprüfe, ob der Kontostand des Senders ausreicht:
+	if (account.balance < data.amount) {
+		return new Response('Balance too low', { status: 400 });
 	}
 
 	//Führe die Einfügeoperation durch und gib die Antwort an das Frontend zurück:
