@@ -9,14 +9,27 @@ export async function POST({ request, cookies }) {
 
 	// console.log("session:", session);
 	console.log(session.user.id)
+	
 
 	//schicke eine Fetch-Anfrage an Supabase
-	fetch(PUBLIC_SUPABASE_URL + "/rest/v1/accounts", {
+	const response = await fetch(PUBLIC_SUPABASE_URL + "/rest/v1/accounts", {
 		method: "POST",
 		headers: {
+				apikey: PUBLIC_SUPABASE_ANON_KEY,
+				Authorization: "Bearer " + session.access_token,
+				"Content-Type":"application/json"
+		},
+		body: JSON.stringify(
+			{
+			user_id: session.user.id,
+			designation: session.user.email,
+			balance: 100
 			
-		}
+		})
+	
 	})
+
+	console.log(response)
 
 	return new Response("ois supa")
 }

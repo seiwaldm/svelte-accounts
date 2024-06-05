@@ -34,6 +34,7 @@
 			send();
 		}
 		console.log(receiverID, amount, purpose, error);
+		resetForm();
 	}
 
 	async function send() {
@@ -59,17 +60,23 @@
 
 	function openForm() {
 		hidden = !hidden;
-		amount = '';
-		purpose = '';
-		receiverID = '';
-		receiverName = 'Empfänger';
+		resetForm();
 		if (hidden) {
 			buttonText = 'Neue Überweisung';
 		} else {
 			buttonText = 'Verwerfen';
 		}
 	}
+
+	function resetForm() {
+		amount = '';
+		purpose = '';
+		receiverID = '';
+		receiverName = 'Empfänger';
+	}
 </script>
+
+<Icon icon="solar:hand-money-outline" width="10em" height="10em" />
 
 <button class="btn" on:click={openForm}>{buttonText}</button>
 
