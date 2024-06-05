@@ -71,6 +71,8 @@
 	}
 </script>
 
+<Icon icon="solar:hand-money-outline" width="10em" height="10em" />
+
 <button class="btn" on:click={openForm}>{buttonText}</button>
 
 {#if !hidden}
