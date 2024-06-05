@@ -31,16 +31,49 @@ $accountList.forEach(account => {
 	}
 });
 
+// Name des receiver_id anzeigen
+let receiverName = '';
+$accountList.forEach(account => {
+	if (account.id === receiver_id) {
+		receiverName = account.designation;
+	}
+});
 
+// bei Ausgabe den Empfänger anzeigen
+// $: receiverClass = getReceiver();
+
+// function getReceiver() {
+// 	 return transaction.sender_id === account.id
+// 			? `${receiverName}`
+// 			: `${senderName}`;
+
+//  if(sender_id === account.id) {
+//  {receiverName}
+//  }
+//  else {
+//  {senderName}
+//  }
+//  }
+// }
+
+
+// $: receiverClass = getReceiver();
+
+// function getReceiver() {
+// 	return sender_id === account.id ? receiverName : senderName;
+// }
 
 
 </script>
+
 
 <div class="collapse collapse-plus bg-base-200">
 	<input type="radio" name="my-accordion-3" checked="checked" /> 
 	<div class="collapse-title text-xl font-medium {transactionClass}" >
 		<!-- {sender_id}  -->
 		{senderName}
+		<!-- {getReceiver()} -->
+		<!-- {receiverClass} -->
 		| Amount: 
 		{amount}
 		<!--  {transactionClass} -->
@@ -50,6 +83,9 @@ $accountList.forEach(account => {
 	</div>
 </div>
 <!-- {JSON.stringify($accountList)} -->
+
+
+
 
 
 
