@@ -4,6 +4,7 @@
             method: "POST"
         })
     }
+
 </script>
 
 
@@ -38,8 +39,8 @@
 			</label>
 		</p>
 		<div class="modal-action">
-            <button on:click={createAccount} class="btn">Create Account</button>
-			<label for="my_modal_6" class="btn">Cancel</label>
+            <button for="my_modal_7" on:click={createAccount} class="btn">Create Account</button>
+			<label for="my_modal_7" class="btn">Cancel</label>
 		</div>
 	</div>
 </div>
