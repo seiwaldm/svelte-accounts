@@ -44,7 +44,7 @@
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				sender_id: 'db24ee64-5d0c-45ca-9f4a-7a5ca1207124',
+				sender_id: sender,
 				receiver_id: receiverID,
 				amount: amount,
 				purpose: purpose
