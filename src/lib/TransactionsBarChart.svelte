@@ -1,10 +1,13 @@
 <script>
+// alle Imports
 	import { accounts, accountList} from '$lib/store.js';
+//import barchart von chart.js
 	import { Bar } from 'svelte-chartjs';
 	import 'chart.js/auto';
-
+//dynamische Daten für das Diagramm 
 	export let transactions;
 
+//Wie viele Einnahmen habe ich.
 	const income = transactions.reduce((total, transaction) => {
 		if (transaction.receiver_id === $accounts[0].id) {
 			return total + transaction.amount;
@@ -13,6 +16,7 @@
 		}
 	}, 0);
 
+//Wie viele Ausgaben habe ich.
 	const expenses = transactions.reduce((total, transaction) => {
 		if (transaction.sender_id === $accounts[0].id) {
 			return total + transaction.amount;
@@ -21,8 +25,11 @@
 		}
 	}, 0);
 
+//Welche Datn sollen im Diagramm dargestellt werden.
 	const data = {
+		//Unterüberschrift
 		labels: ['Cash Flow'],
+		//Welche Daten baue ich ein mit Styling
 		datasets: [
 			{
 				label: 'Einnahmen',
@@ -45,4 +52,5 @@
 	};
 </script>
 
+<!-- Anzeige des Diagrammes mit der Variabel data von dem oberen Block. -->
 <Bar {data} />
