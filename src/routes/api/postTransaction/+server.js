@@ -8,8 +8,9 @@ export async function POST({ request, cookies }) {
 	const accountList = JSON.parse(cookies.get('account_list'));
 	const account = JSON.parse(cookies.get('account'));
 
+	// TODO: Namensgebung - 2x account!!!
 	//Finde den Account in der accountList, der der Benutzer-ID der Session entspricht:
-	const account = accountList.find((account) => account.user_id === session.user.id);
+	// const account = accountList.find((account) => account.user_id === session.user.id);
 
 	//Überprüfe, ob der sender_id dem Konto des eingeloggten Benutzers entspricht:
 	if (data.sender_id !== account.id) {
