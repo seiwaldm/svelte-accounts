@@ -46,15 +46,15 @@
 		const formattedTime = date.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }); // Format time as 'HH:mm'
 		return `${formattedDate} ${formattedTime}`;
 	}
+	
 </script>
 
 <div class="collapse collapse-plus bg-base-200">
 	<input type="radio" name="my-accordion-3" checked="checked" />
 	<div class="collapse-title text-xl font-medium {transactionClass}">
 		From {senderName} to {receiverName}
-
 		| Amount:
-		{amount}
+		{amount} €
 	</div>
 	<div class="collapse-content">
 		<p>{formatDateTime(created_at)} | {purpose}</p>
