@@ -97,7 +97,6 @@
 	{#key filteredData}
 		<TransactionList transactions={filteredData} />
 		<TransactionsBarChart transactions={filteredData} />
+		<BalanceLineChart transactions={filteredData} />
 	{/key}
 {/if}
-
-<!-- <BalanceLineChart transactions={filteredData} /> -->
