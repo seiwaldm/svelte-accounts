@@ -14,16 +14,15 @@
 
 	let list = $accountList;
 
-	// // let list = [...$accountList].sort((a, b) => {
-	// 	if (a.designation.toLowerCase() < b.designation.toLowerCase()) {
-	// 		return -1;
-	// 	}
-	// 	if (a.designation.toLowerCase() > b.designation.toLowerCase()) {
-	// 		return 1;
-	// 	}
-	// 	return 0;
-	// });
-
+	list = [...$accountList].sort((a, b) => {
+		if (a.designation.toLowerCase() < b.designation.toLowerCase()) {
+			return -1;
+		}
+		if (a.designation.toLowerCase() > b.designation.toLowerCase()) {
+			return 1;
+		}
+		return 0;
+	});
 	function submitTransaction() {
 		if (receiverID === '' || amount === '' || purpose === '') {
 			error = 'Bitte füllen Sie alle Felder aus';
