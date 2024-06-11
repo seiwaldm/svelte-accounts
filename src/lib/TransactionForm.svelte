@@ -6,6 +6,7 @@ um meine finanziellen Transaktionen effizient und nachvollziehbar abzuwickeln.
 -->
 
 <script>
+	//imports
 	import { accounts, accountList } from '$lib/store';
 	import Icon from '@iconify/svelte';
 
