@@ -57,25 +57,38 @@
 	let value = {};
 </script>
 
-<div>
-	<label for="filterType">Filter by:</label>
-	<select id="filterType" bind:value={filterType}>
-		<option value="amount">Amount</option>
-		<option value="date">Date</option>
-		<option value="purpose">Word Search</option>
-	</select>
-
-	{#if filterType === 'date'}
-		<button on:click={applyFilter}>Apply Filter</button>
-		<div class="rounded-md border max-w-min text-black bg-slate-300">
-			<RangeCalendar bind:value />
+<div class="navbar bg-base-100 mb-4">
+	<div class="flex-1">
+		<a class="btn btn-ghost text-xl">Transactions</a>
+	</div>
+	<div class="flex-none gap-2 items-center">
+		<label for="filterType" class="text-white-700">Filter by:</label>
+		<div class="form-control">
+			<select id="filterType" bind:value={filterType} class="select select-bordered">
+				<option value="amount">Amount</option>
+				<option value="date">Date</option>
+				<option value="purpose">Word Search</option>
+			</select>
 		</div>
-	{/if}
-
-	{#if filterType !== 'date'}
-		<input type="text" bind:value={filterValue} placeholder="Enter filter value" />
-		<button on:click={applyFilter}>Apply Filter</button>
-	{/if}
+		{#if filterType === 'date'}
+			<div class="form-control">
+				<button on:click={applyFilter} class="btn btn-ghost">Apply Filter</button>
+				<div class="rounded-md border max-w-min text-black bg-slate-300">
+					<RangeCalendar bind:value />
+				</div>
+			</div>
+		{:else}
+			<div class="form-control align-middle">
+				<input
+					type="text"
+					placeholder="Enter filter value"
+					bind:value={filterValue}
+					class="input input-bordered w-24 md:w-auto"
+				/>
+			</div>
+			<button on:click={applyFilter} class="btn btn-ghost">Apply Filter</button>
+		{/if}
+	</div>
 </div>
 
 {#if transactionList.length === 0}
@@ -84,7 +97,6 @@
 	{#key filteredData}
 		<TransactionList transactions={filteredData} />
 		<TransactionsBarChart transactions={filteredData} />
+		<BalanceLineChart transactions={filteredData} />
 	{/key}
 {/if}
-
-<!-- <BalanceLineChart transactions={filteredData} /> -->

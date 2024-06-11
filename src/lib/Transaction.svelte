@@ -23,71 +23,44 @@
 			: `-${transaction.amount}`;
 	}
 
-// Name des sender_id anzeigen
-let senderName = '';
-$accountList.forEach(account => {
-	if (account.id === sender_id) {
-		senderName = account.designation;
+	// Name des sender_id anzeigen
+	let senderName = '';
+	$accountList.forEach((account) => {
+		if (account.id === sender_id) {
+			senderName = account.designation;
+		}
+	});
+
+	// Name des receiver_id anzeigen
+	let receiverName = '';
+	$accountList.forEach((account) => {
+		if (account.id === receiver_id) {
+			receiverName = account.designation;
+		}
+	});
+
+	// Format the date and time
+	function formatDateTime(dateTime) {
+		const date = new Date(dateTime);
+		const formattedDate = date.toLocaleDateString('de-DE'); // Format date as 'dd.MM.yyyy'
+		const formattedTime = date.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }); // Format time as 'HH:mm'
+		return `${formattedDate} ${formattedTime}`;
 	}
-});
-
-// Name des receiver_id anzeigen
-let receiverName = '';
-$accountList.forEach(account => {
-	if (account.id === receiver_id) {
-		receiverName = account.designation;
-	}
-});
-
-// bei Ausgabe den Empfänger anzeigen
-// $: receiverClass = getReceiver();
-
-// function getReceiver() {
-// 	 return transaction.sender_id === account.id
-// 			? `${receiverName}`
-// 			: `${senderName}`;
-
-//  if(sender_id === account.id) {
-//  {receiverName}
-//  }
-//  else {
-//  {senderName}
-//  }
-//  }
-// }
-
-
-// $: receiverClass = getReceiver();
-
-// function getReceiver() {
-// 	return sender_id === account.id ? receiverName : senderName;
-// }
-
-
+	
 </script>
 
-
 <div class="collapse collapse-plus bg-base-200">
-	<input type="radio" name="my-accordion-3" checked="checked" /> 
-	<div class="collapse-title text-xl font-medium {transactionClass}" >
-		<!-- {sender_id}  -->
-		{senderName}
-		<!-- {getReceiver()} -->
-		<!-- {receiverClass} -->
-		| Amount: 
-		{amount}
-		<!--  {transactionClass} -->
+	<input type="radio" name="my-accordion-3" checked="checked" />
+	<div class="collapse-title text-xl font-medium {transactionClass}">
+		From {senderName} to {receiverName}
+		| Amount:
+		{amount} €
 	</div>
-	<div class="collapse-content"> 
-	  <p>{created_at} | {purpose}</p>
+	<div class="collapse-content">
+		<p>{formatDateTime(created_at)} | {purpose}</p>
 	</div>
+	<hr />
 </div>
-<!-- {JSON.stringify($accountList)} -->
-
-
-
-
-
 
 <style>
 	.revenue {
