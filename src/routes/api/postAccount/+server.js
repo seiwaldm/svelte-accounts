@@ -1,20 +1,35 @@
-import { supabase } from '$lib/supabase';
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
 
 export async function POST({ request, cookies }) {
-  const session = JSON.parse(cookies.get("session"));
+
   const data = await request.json();
+  console.log(data)
+  //extract data from request and cookies:
+  const session = JSON.parse(cookies.get("session"));
 
-  const { data: response, error } = await supabase
-    .from('accounts')
-    .insert([
-      { user_id: session.user.id, designation: data.accountName, balance: data.startingBalance },
-    ]);
+  // console.log("session:", session);
+  console.log(session.user.id)
 
-  if (error) {
-    console.error('Failed to create account:', error);
-    return new Response('Error creating account', { status: 500 });
-  }
 
-  return new Response('Account created successfully');
+  //schicke eine Fetch-Anfrage an Supabase
+  const response = await fetch(PUBLIC_SUPABASE_URL + "/rest/v1/accounts", {
+    method: "POST",
+    headers: {
+      apikey: PUBLIC_SUPABASE_ANON_KEY,
+      Authorization: "Bearer " + session.access_token,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(
+      {
+        user_id: session.user.id,
+        designation: data.accountName,
+        balance: data.startingBalance,
+
+      })
+
+  })
+
+  console.log(response)
+
+  return new Response("ois supa")
 }
