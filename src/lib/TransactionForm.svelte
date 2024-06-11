@@ -20,9 +20,7 @@ um meine finanziellen Transaktionen effizient und nachvollziehbar abzuwickeln.
 	let error = '';
 	let dropdownOpen = false; // Neue Variable für Dropdown-Zustand
 
-	let list = $accountList;
-
-	list = [...$accountList].sort((a, b) => {
+	let list = [...$accountList].sort((a, b) => {
 		if (a.designation.toLowerCase() < b.designation.toLowerCase()) {
 			return -1;
 		}
