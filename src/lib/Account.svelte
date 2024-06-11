@@ -1,17 +1,54 @@
 <script>
+	import { onMount } from 'svelte';
 	import { supabase } from '$lib/supabase';
+	import { get } from 'svelte/store';
+	import { accounts } from '$lib/store.js';
+	
 
 	export let accountName = '';
-
+	export async function fetchAccounts() {
+    let { data, error } = await supabase.from('accounts').select('*');
+    if (error) {
+        console.error('Error fetching accounts:', error);
+    } else {
+        accounts.set(data);
+		console.log('Accounts fetched:', data);
+    }
+}
+	
 	export let startingBalance = 0;
 	export async function deleteAccount() {
-		let { data, error } = await supabase.from('accounts').delete().eq('designation', accountName);
-		if (error) {
-			console.error('Error deleting account:', error);
-		} else {
-			console.log('Account deleted:', data);
+		if (startingBalance > 0) {
+    console.error("Cannot delete account with positive balance.");
+	alert("Cannot delete account with positive balance.");
+    return;
 		}
-	}
+  let { data, error } = await supabase.from('accounts').delete().eq('designation', accountName);
+  if (error) {
+    console.error('Error deleting account:', error);
+  } else {
+    console.log('Account deleted:', data);
+    window.location.reload();
+  }
+}
+
+export async function setAccountBalanceToZero(accountDesignation) {
+  try {
+    const { data, error } = await supabase
+      .from('accounts')
+      .update({ balance: 0 })
+      .eq('designation', accountDesignation);
+
+    if (error) {
+      throw error;
+    }
+
+    console.log('Account balance updated successfully:', data);
+  } catch (error) {
+    console.error('Error updating account balance:', error);
+  }
+}
+
 </script>
 
 <div class="bg-base-200 p-4 rounded-lg shadow-lg flex justify-between items-center">
