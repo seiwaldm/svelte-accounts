@@ -1,3 +1,10 @@
+<!-- 
+User-Story: 
+Als Benutzer eines Online-Banking-Systems
+möchte ich eine Überweisung mit einem Verwendungszweck erstellen, freigeben und senden können
+um meine finanziellen Transaktionen effizient und nachvollziehbar abzuwickeln.
+-->
+
 <script>
 	import { accounts, accountList } from '$lib/store';
 	import Icon from '@iconify/svelte';
