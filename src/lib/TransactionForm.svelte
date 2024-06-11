@@ -1,4 +1,12 @@
+<!-- 
+User-Story: 
+Als Benutzer eines Online-Banking-Systems
+möchte ich eine Überweisung mit einem Verwendungszweck erstellen, freigeben und senden können
+um meine finanziellen Transaktionen effizient und nachvollziehbar abzuwickeln.
+-->
+
 <script>
+	//imports
 	import { accounts, accountList } from '$lib/store';
 	import Icon from '@iconify/svelte';
 
@@ -13,9 +21,7 @@
 	let error = '';
 	let dropdownOpen = false; // Neue Variable für Dropdown-Zustand
 
-	let list = $accountList;
-
-	list = [...$accountList].sort((a, b) => {
+	let list = [...$accountList].sort((a, b) => {
 		if (a.designation.toLowerCase() < b.designation.toLowerCase()) {
 			return -1;
 		}
