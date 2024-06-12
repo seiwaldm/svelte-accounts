@@ -7,20 +7,11 @@
 	export let purpose;
 	export let created_at;
 
-	export let user_id; // This is the current user's ID
-
 	$: transactionClass = getClass();
 
 	// This function determines the class based on whether the user is the receiver or the sender
 	function getClass() {
 		return $accounts.map((account) => account.id).includes(sender_id) ? 'expense' : 'revenue';
-	}
-
-	// This function determines the sign based on whether the user is the receiver or the sender
-	function getSign(transaction) {
-		return transaction.receiver_id === user_id
-			? `+${transaction.amount}`
-			: `-${transaction.amount}`;
 	}
 
 	// Name des sender_id anzeigen
@@ -46,7 +37,6 @@
 		const formattedTime = date.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }); // Format time as 'HH:mm'
 		return `${formattedDate} ${formattedTime}`;
 	}
-	
 </script>
 
 <div class="collapse collapse-plus bg-base-200">
