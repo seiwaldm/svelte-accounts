@@ -5,7 +5,7 @@
 	import 'chartjs-adapter-date-fns'; // importiert date-fns für chart.js
 	import { onMount } from 'svelte'; // importiert onMount, um Funktionen auszuführen, wenn Komponente gemountet wird
 
-	export let transactions; //exportiert transactions
+	export let transactions; //exportiert transactions, um sie in App.svelte zu verwenden, wird nicht mehr benötigt, da transactions aus store importiert wird
 
 	//Absteigende Sortierung!
 	let sortedTransactions = null;
@@ -19,7 +19,7 @@
 			//Skalierung
 			x: {
 				//x-Achse
-				type: 'time' //Typ Zeit
+				type: 'time' //, //Typ Zeit
 			}
 		}
 	};
