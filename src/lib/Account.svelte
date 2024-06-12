@@ -49,6 +49,7 @@
             accountPurpose = newAccountPurpose;
             isEditing = false;
             fetchAccounts();
+            window.location.reload();
         }
     }
 
