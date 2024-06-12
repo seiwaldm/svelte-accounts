@@ -34,16 +34,22 @@ accountList.subscribe(value => {
         localStorage.accountList = JSON.stringify(value)
 });
 
+export const accountListStore = writable([]);
+
+export default writable([]);
+
 // --- ACCOUNTS ---
 let localStorage_accounts = null;
 if (browser) {
     if (localStorage.accounts) localStorage_accounts = JSON.parse(localStorage.accounts);
 }
+
 export const accounts = writable(localStorage_accounts)
 accounts.subscribe(value => {
     if (browser)
         localStorage.accounts = JSON.stringify(value)
 });
+
 
 // --- TRANSACTIONS ---
 let localStorage_transactions = null;

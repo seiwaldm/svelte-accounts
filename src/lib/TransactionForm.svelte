@@ -1,4 +1,12 @@
+<!-- 
+User-Story: 
+Als Benutzer eines Online-Banking-Systems
+möchte ich eine Überweisung mit einem Verwendungszweck erstellen, freigeben und senden können
+um meine finanziellen Transaktionen effizient und nachvollziehbar abzuwickeln.
+-->
+
 <script>
+	//imports
 	import { accounts, accountList } from '$lib/store';
 	import Icon from '@iconify/svelte';
 
@@ -11,6 +19,7 @@
 	let hidden = true;
 	let buttonText = 'Neue Überweisung';
 	let error = '';
+	let dropdownOpen = false; // Neue Variable für Dropdown-Zustand
 
 	let list = [...$accountList].sort((a, b) => {
 		if (a.designation.toLowerCase() < b.designation.toLowerCase()) {
@@ -25,7 +34,7 @@
 	function submitTransaction() {
 		if (receiverID === '' || amount === '' || purpose === '') {
 			error = 'Bitte füllen Sie alle Felder aus';
-		} else if (!Number.isInteger(amount)) {
+		} else if (!Number.isInteger(Number(amount))) {
 			error = 'Der Betrag muss eine ganze Zahl sein';
 		} else if (amount <= 0) {
 			error = 'Der Betrag muss größer als 0 sein';
@@ -56,6 +65,11 @@
 	function setReceiver(id, name) {
 		receiverID = id;
 		receiverName = name;
+		dropdownOpen = false; // Dropdown schließen
+	}
+
+	function toggleDropdown() {
+		dropdownOpen = !dropdownOpen;
 	}
 
 	function openForm() {
@@ -73,6 +87,7 @@
 		purpose = '';
 		receiverID = '';
 		receiverName = 'Empfänger';
+		dropdownOpen = false; // Dropdown zurücksetzen
 	}
 </script>
 
@@ -86,23 +101,27 @@
 		<p class="py-4">
 			<label class="form-control w-full max-w-xs">
 				<div class="dropdown dropdown-right">
-					<button tabindex="-1" class="btn btn-wide">{receiverName}</button>
-					<ul
-						tabindex="-1"
-						z-index="5"
-						class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+					<button tabindex="-1" class="btn btn-wide" on:click={toggleDropdown}
+						>{receiverName}</button
 					>
-						{#each list as account}
-							<li>
-								<button
-									class="btn max-w-xs"
-									on:click={() => setReceiver(account.id, account.designation)}
-								>
-									{account.designation}
-								</button>
-							</li>
-						{/each}
-					</ul>
+					{#if dropdownOpen}
+						<ul
+							tabindex="-1"
+							z-index="5"
+							class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+						>
+							{#each list as account}
+								<li>
+									<button
+										class="btn max-w-xs"
+										on:click={() => setReceiver(account.id, account.designation)}
+									>
+										{account.designation}
+									</button>
+								</li>
+							{/each}
+						</ul>
+					{/if}
 				</div>
 
 				<input
