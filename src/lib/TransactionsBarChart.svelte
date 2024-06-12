@@ -34,7 +34,7 @@
 			{
 				label: 'Einnahmen',
 				data: [income],
-				backgroundColor: ['rgba(58, 238, 106, 0.4)'], // Grün
+				backgroundColor: ['rgba(58, 238, 106, 0.4)'], // Blau
 				borderColor: ['rgba(58, 238, 106, 0.7)'],
 				borderWidth: 2
 			},
@@ -44,7 +44,7 @@
 				font: {
 					size: 18
 				},
-				backgroundColor: ['rgba(238, 28, 28,0.4)'], // Rot
+				backgroundColor: ['rgba(238, 28, 28,0.4)'], // Pink
 				borderColor: ['rgba(238, 28, 28, 0.7)'],
 				borderWidth: 2
 			}

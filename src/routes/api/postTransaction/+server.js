@@ -6,14 +6,7 @@ export async function POST({ request, cookies }) {
 	const data = await request.json();
 	const session = JSON.parse(cookies.get('session'));
 	const accountList = JSON.parse(cookies.get('account_list'));
-	const accounts = JSON.parse(cookies.get('accounts'));
-	console.log(accounts);
-
-	//Überprüfe, ob der Kontostand des Senders ausreicht, entnehme die Information von Server.
-	if (accounts[0].balance < data.amount) {
-		console.log('Balance too low');
-		return new Response('Balance too low', { status: 400 });
-	}
+	// const account = JSON.parse(cookies.get('account'));
 
 	// TODO: Namensgebung - 2x account!!!
 	//Finde den Account in der accountList, der der Benutzer-ID der Session entspricht:
@@ -26,8 +19,12 @@ export async function POST({ request, cookies }) {
 
 	//Überprüfe, ob der Betrag positiv ist:
 	if (data.amount <= 0) {
-		console.log('Amount should be greater than 0');
 		return new Response('Amount should be greater than 0', { status: 400 });
+	}
+
+	//Überprüfe, ob der Kontostand des Senders ausreicht:
+	if (account.balance < data.amount) {
+		return new Response('Balance too low', { status: 400 });
 	}
 
 	//Führe die Einfügeoperation durch und gib die Antwort an das Frontend zurück:

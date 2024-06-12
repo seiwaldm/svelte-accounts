@@ -20,7 +20,6 @@
 				.select('*')
 				.then((response) => {
 					$accounts = response.data;
-					document.cookie = `accounts=${JSON.stringify(response.data)};SameSite=Strict`;
 				});
 
 			supabase
