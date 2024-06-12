@@ -9,7 +9,7 @@ export async function POST({ request, cookies }) {
 	const accounts = JSON.parse(cookies.get('accounts'));
 	console.log(accounts);
 
-	//Überprüfe, ob der Kontostand des Senders ausreicht, entnehme die Information von Server
+	//Überprüfe, ob der Kontostand des Senders ausreicht, entnehme die Information von Server.
 	if (accounts[0].balance < data.amount) {
 		console.log('Balance too low');
 		return new Response('Balance too low', { status: 400 });
