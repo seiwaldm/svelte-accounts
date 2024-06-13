@@ -1,11 +1,11 @@
 <script>
-	import { Line } from 'svelte-chartjs'; // line chart von chart.js
-	import { accounts } from '$lib/store'; // importiere transactions und accounts aus store
-	import 'chart.js/auto'; // importiert chart.js
-	import 'chartjs-adapter-date-fns'; // importiert date-fns für chart.js
-	import { onMount } from 'svelte'; // importiert onMount, um Funktionen auszuführen, wenn Komponente gemountet wird
+	import { Line } from 'svelte-chartjs';
+	import { accounts } from '$lib/store';
+	import 'chart.js/auto';
+	import 'chartjs-adapter-date-fns';
+	import { onMount } from 'svelte';
 
-	export let transactions; //exportiert transactions, um sie in App.svelte zu verwenden, wird nicht mehr benötigt, da transactions aus store importiert wird
+	export let transactions;
 
 	//Absteigende Sortierung!
 	let sortedTransactions = null;
@@ -16,19 +16,16 @@
 	let chartOptions = {
 		//Optionen für Chart
 		scales: {
-			//Skalierung
 			x: {
-				//x-Achse
-				type: 'time' //, //Typ Zeit
+				type: 'time' //x-Achse ist Zeitachse
 			}
 		}
 	};
 	const chartData = {
 		//Daten für Chart
 		datasets: [
-			//Datensätze
 			{
-				data: calculatedBalance //Daten sind berechneter Kontostand, wird oben berechnet
+				data: calculatedBalance //Daten sind berechneter Kontostand
 			}
 		]
 	};
@@ -37,7 +34,7 @@
 		currentBalance = $accounts[0].balance;
 		sortedTransactions = transactions.sort(
 			//sortiert transactions nach Datum, absteigend
-			(a, b) => new Date(b.created_at) - new Date(a.created_at) //sortiert nach Datum
+			(a, b) => new Date(b.created_at) - new Date(a.created_at)
 		);
 		//wird ausgeführt, wenn Komponente gemountet wird (also wenn sie angezeigt wird)
 		sortedTransactions.forEach((transaction) => {
@@ -62,7 +59,7 @@
 			}
 		});
 		document.body.style.zoom = '96%';
-	}); // Close the onMount function
+	});
 </script>
 
 <Line id="chart" data={chartData} options={chartOptions} />
