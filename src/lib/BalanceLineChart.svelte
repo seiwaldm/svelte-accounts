@@ -58,7 +58,7 @@
 				calculatedBalance = calculatedBalance;
 			}
 		});
-		document.body.style.zoom = '96%';
+		// document.body.style.zoom = '96%';
 	});
 </script>
 
