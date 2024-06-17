@@ -7,22 +7,21 @@
 
 	export let transactions;
 
-	//Absteigende Sortierung!
-	let sortedTransactions = null;
-	let currentBalance = 0; //setzt aktuellen Kontostand auf Kontostand des ersten Accounts
-
+	let sortedTransactions = [];
+	let currentBalance = 0; //Aktueller Kontostand
 	let calculatedBalance = []; //Array für berechneten Kontostand
 
+	const ZOOM_LEVEL = '96%'; //Zoom-Level für Chart
+
 	let chartOptions = {
-		//Optionen für Chart
 		scales: {
 			x: {
 				type: 'time' //x-Achse ist Zeitachse
 			}
 		}
 	};
+
 	const chartData = {
-		//Daten für Chart
 		datasets: [
 			{
 				data: calculatedBalance //Daten sind berechneter Kontostand
@@ -30,35 +29,29 @@
 		]
 	};
 
-	onMount(() => {
+	const calculateBalance = () => {
 		currentBalance = $accounts[0].balance;
 		sortedTransactions = transactions.sort(
-			//sortiert transactions nach Datum, absteigend
-			(a, b) => new Date(b.created_at) - new Date(a.created_at)
+			(transaction1, transaction2) =>
+				new Date(transaction2.created_at) - new Date(transaction1.created_at)
 		);
-		//wird ausgeführt, wenn Komponente gemountet wird (also wenn sie angezeigt wird)
+
 		sortedTransactions.forEach((transaction) => {
-			//geht alle Transaktionen durch, sortiert nach Datum
-			if (transaction.sender_id === $accounts[0].id) {
-				currentBalance += transaction.amount; //wir gehen von hinten nach vorne vor, also plus für Ausgaben
-				calculatedBalance.push({
-					//fügt x und y Wert zum Array hinzu
-					x: transaction.created_at, //x-Wert ist das Datum der Transaktion
-					y: currentBalance //y-Wert ist der aktuelle Kontostand
-				});
-				calculatedBalance = calculatedBalance; //setzt Array auf sich selbst, um es zu aktualisieren, da Svelte sonst keine Änderung erkennt
-			} else if (transaction.receiver_id === $accounts[0].id) {
-				//wenn receiver_id des Transactions gleich id des ersten Accounts ist, dann...; wird nur für Testzwecke verwendet
-				currentBalance -= transaction.amount; //wir gehen von hinten nach vorne vor, und rechnen deshalb minus für Einnahmen (zurückrechnen)
-				calculatedBalance.push({
-					//fügt x und y Wert zum Array hinzu, wie oben
-					x: transaction.created_at,
-					y: currentBalance
-				});
-				calculatedBalance = calculatedBalance;
-			}
+			updatedCurrentBalance(transaction);
+			addToCalculatedBalance(transaction);
 		});
-		// document.body.style.zoom = '96%';
+	};
+	const updatedCurrentBalance = (transaction) => {
+		if (transaction.sender_id === $accounts[0].id) {
+			currentBalance += transaction.amount;
+		} else if (transaction.reciver_id === $accounts[0].id) {
+			currentBalance -= transaction.amount;
+		}
+	};
+
+	onMount(() => {
+		calculateBalance();
+		document.body.style.zoom = ZOOM_LEVEL;
 	});
 </script>
 
