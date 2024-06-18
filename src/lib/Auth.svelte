@@ -3,16 +3,24 @@
 
 	let loading = false;
 	let email = '';
+	let message = '';
+	let isSuccess = false;
+	let isError = false;
 
 	const handleLogin = async () => {
 		try {
 			loading = true;
+			message = '';
+			isSuccess = false;
+			isError = false;
 			const { error } = await supabase.auth.signInWithOtp({ email });
 			if (error) throw error;
-			alert('Check your email for login link!');
+			message = 'Check your email for login link!';
+			isSuccess = true;
 		} catch (error) {
 			if (error instanceof Error) {
-				alert(error.message);
+				message = error.message;
+				isError = true;
 			}
 		} finally {
 			loading = false;
@@ -46,6 +54,9 @@
 				</button>
 			</div>
 		</form>
+		{#if message}
+			<p class="message mt-4 {isSuccess ? 'success' : ''} {isError ? 'error' : ''}">{message}</p>
+		{/if}
 	</div>
 </div>
 
@@ -56,5 +67,23 @@
 	}
 	.mt-10 {
 		margin-top: 2.5rem;
+	}
+	.mt-4 {
+		margin-top: 1rem;
+	}
+	.message {
+		padding: 0.5rem;
+		border-radius: 0.25rem;
+		text-align: center;
+	}
+	.success {
+		color: #16a34a;
+		background-color: #d1fae5;
+		border: 1px solid #16a34a;
+	}
+	.error {
+		color: #dc2626;
+		background-color: #fee2e2;
+		border: 1px solid #dc2626;
 	}
 </style>
