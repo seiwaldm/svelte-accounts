@@ -3,16 +3,24 @@
 
 	let loading = false;
 	let email = '';
+	let message = '';
+	let isSuccess = false;
+	let isError = false;
 
 	const handleLogin = async () => {
 		try {
 			loading = true;
+			message = '';
+			isSuccess = false;
+			isError = false;
 			const { error } = await supabase.auth.signInWithOtp({ email });
 			if (error) throw error;
-			alert('Check your email for login link!');
+			message = 'Check your email for login link!';
+			isSuccess = true;
 		} catch (error) {
 			if (error instanceof Error) {
-				alert(error.message);
+				message = error.message;
+				isError = true;
 			}
 		} finally {
 			loading = false;
@@ -20,26 +28,62 @@
 	};
 </script>
 
-<div class="row flex-center flex">
-	<div class="col-6 form-widget" aria-live="polite">
-		<h1 class="header">Supabase + Svelte</h1>
-		<p class="description">Sign in via magic link with your email below</p>
+<div class="card w-96 glass mx-auto mt-10">
+	<figure>
+		<img src="login-page.webp" alt="car!" />
+	</figure>
+	<div class="card-body mx-auto">
+		<h2 class="card-title">Supabase + Svelte</h2>
+		<p>Sign in via magic link with your email below</p>
 		<form class="form-widget" on:submit|preventDefault={handleLogin}>
-			<div>
-				<label for="email">Email</label>
+			<div class="form-control">
+				<label for="email" class="label">
+					<span class="label-text">Email</span>
+				</label>
 				<input
 					id="email"
-					class="inputField"
+					class="input input-bordered"
 					type="email"
 					placeholder="Your email"
 					bind:value={email}
 				/>
 			</div>
-			<div>
-				<button type="submit" class="button block" aria-live="polite" disabled={loading}>
+			<div class="form-control mt-4">
+				<button type="submit" class="btn btn-primary w-full" aria-live="polite" disabled={loading}>
 					<span>{loading ? 'Loading' : 'Send magic link'}</span>
 				</button>
 			</div>
 		</form>
+		{#if message}
+			<p class="message mt-4 {isSuccess ? 'success' : ''} {isError ? 'error' : ''}">{message}</p>
+		{/if}
 	</div>
 </div>
+
+<style>
+	.mx-auto {
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.mt-10 {
+		margin-top: 2.5rem;
+	}
+	.mt-4 {
+		margin-top: 1rem;
+	}
+	.message {
+		padding: 0.5rem;
+		border-radius: 0.25rem;
+		text-align: center;
+	}
+	.success {
+		color: #16a34a;
+		background-color: #d1fae5;
+		border: 1px solid #16a34a;
+	}
+	.error {
+		color: #dc2626;
+		background-color: #fee2e2;
+		border: 1px solid #dc2626;
+	}
+</style>
