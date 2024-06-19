@@ -61,16 +61,7 @@
 </div>
 
 <style>
-	.mx-auto {
-		margin-left: auto;
-		margin-right: auto;
-	}
-	.mt-10 {
-		margin-top: 2.5rem;
-	}
-	.mt-4 {
-		margin-top: 1rem;
-	}
+	
 	.message {
 		padding: 0.5rem;
 		border-radius: 0.25rem;
